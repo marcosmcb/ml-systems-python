@@ -63,3 +63,27 @@ plt.plot( fx, f2(fx), linewidth=4 )
 plt.legend( ["d=%i" % f1.order, "d=%i" % f2.order ], loc = "upper left" )
 #plt.show()
 
+
+'''
+    Stepping back to go forward - another look at our data
+'''
+
+inflection = 3.5 * 7 * 24 # calculate the inflection point in hours
+
+xa = hours[:inflection] # data before the inflection point
+ya = hits[:inflection]
+
+xb = hours[inflection:] # data after
+yb = hits[inflection:]
+
+
+fa = sp.poly1d( sp.polyfit( xa, ya, 1 ) )
+fb = sp.poly1d( sp.polyfit( xb, yb, 1 ) )
+
+
+fa_error = error( fa, xa, ya )
+fb_error = error( fb, xb, yb )
+
+print ''' Error inflection = ''' 
+print fa 
+print fb_error
